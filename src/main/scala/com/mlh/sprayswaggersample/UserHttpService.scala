@@ -1,11 +1,11 @@
-package com.gettyimages.spray.swagger
+package com.mlh.sprayswaggersample
 
-import com.wordnik.swagger.annotations._
-import javax.ws.rs.Path
+import io.swagger.annotations._
 import spray.routing.HttpService
-import spray.httpx.Json4sSupport
+import javax.ws.rs.Path
 
-@Api(value = "/user", description = "Operations about users.", produces="application/json", position=1)
+@Api()
+@Path("/user")
 trait UserHttpService extends HttpService {
 
   val routes = readRoute ~ getUser

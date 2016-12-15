@@ -1,16 +1,17 @@
 package com.mlh.sprayswaggersample
 
-import com.wordnik.swagger.annotations._
 import javax.ws.rs.Path
+
+import io.swagger.annotations._
 import spray.routing.HttpService
 
-@Api(value = "/pet", description = "Operations about pets.", position = 0)
+@Api()
+@Path("/pet")
 trait PetHttpService extends HttpService {
 
   import Json4sSupport._
 
   val routes = readRoute ~ updateRoute ~ deleteRoute ~ addRoute ~ searchRoute ~ readRouteForNestedResource
-
 
   @ApiOperation(value = "Find a pet by ID", notes = "Returns a pet based on ID", httpMethod = "GET", response = classOf[Pet])
   @ApiImplicitParams(Array(
@@ -57,7 +58,7 @@ trait PetHttpService extends HttpService {
 
   @ApiOperation(value = "Add a new pet to the store", nickname = "addPet", httpMethod = "POST", consumes = "application/json, application/vnd.custom.pet")
   @ApiImplicitParams(Array(
-    new ApiImplicitParam(name = "body", value = "Pet object that needs to be added to the store", dataType = "Pet", required = true, paramType = "body")
+    new ApiImplicitParam(name = "body", value = "Pet object that needs to be added to the store", dataType = "com.mlh.sprayswaggersample.Pet", required = true, paramType = "body")
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 405, message = "Invalid input")

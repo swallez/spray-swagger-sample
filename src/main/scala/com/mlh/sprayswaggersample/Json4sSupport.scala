@@ -1,8 +1,9 @@
 package com.mlh.sprayswaggersample
 
-import spray.httpx.Json4sJacksonSupport
-import org.json4s._
 import java.util.UUID
+
+import org.json4s._
+import spray.httpx.Json4sJacksonSupport
 
 object Json4sSupport extends Json4sJacksonSupport {
    implicit def json4sJacksonFormats: Formats = jackson.Serialization.formats(NoTypeHints) + new UUIDFormat

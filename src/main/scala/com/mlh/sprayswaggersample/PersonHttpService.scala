@@ -1,20 +1,19 @@
-package com.gettyimages.spray.swagger
+package com.mlh.sprayswaggersample
 
+import io.swagger.annotations._
+import spray.http.StatusCodes.OK
+import spray.routing.HttpService
 import javax.ws.rs.Path
 
-import com.wordnik.swagger.annotations._
-import spray.http.StatusCodes.OK
-import spray.httpx.Json4sSupport
-import spray.routing.HttpService
-
-@Api(value = "/person", description = "Operations about people.", produces = "application/json", position = 2)
+@Api()
+@Path("/person")
 trait PersonHttpService extends HttpService {
 
   val routes = postPerson
 
   @ApiOperation(value = "Post a person", notes = "", nickname = "postPerson", httpMethod = "POST")
   @ApiImplicitParams(Array(
-    new ApiImplicitParam(name = "body", value = "Person with name", dataType = "Person", required = true, paramType = "body")
+    new ApiImplicitParam(name = "body", value = "Person with name", dataType = "com.mlh.sprayswaggersample.Person", required = true, paramType = "body")
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 200, message = "Person got created"),

@@ -1,10 +1,11 @@
 package com.mlh.sprayswaggersample
 
-import akka.actor.{Actor, ActorSystem, Props, ActorLogging}
+import akka.actor.ActorLogging
+import com.github.swagger.spray.SwaggerHttpService
+import com.github.swagger.spray.model.Info
 import spray.routing._
-import com.gettyimages.spray.swagger._
+
 import scala.reflect.runtime.universe._
-import com.wordnik.swagger.model.ApiInfo
 
 class SampleServiceActor
   extends HttpServiceActor
@@ -34,12 +35,19 @@ class SampleServiceActor
       })
 
   val swaggerService = new SwaggerHttpService {
-    override def apiTypes = Seq(typeOf[PetHttpService], typeOf[UserHttpService], typeOf[PersonHttpService])
-    override def apiVersion = "2.0"
-    override def baseUrl = "/" // let swagger-ui determine the host and port
-    override def docsPath = "api-docs"
+
+    override val apiTypes = Seq(typeOf[PetHttpService], typeOf[UserHttpService], typeOf[PersonHttpService])
+    //override val basePath = "/" // let swagger-ui determine the host and port
+    //override val apiDocsPath = "api-docs"
     override def actorRefFactory = context
-    override def apiInfo = Some(new ApiInfo("Spray-Swagger Sample", "A sample petstore service using spray and spray-swagger.", "TOC Url", "Michael Hamrah @mhamrah", "Apache V2", "http://www.apache.org/licenses/LICENSE-2.0"))
+    override val info = Info(
+      title="Spray-Swagger Sample",
+      description="A sample petstore service using spray and spray-swagger.",
+      version = "2.0",
+      termsOfService = "Terms"
+
+      //"TOC Url", "Michael Hamrah @mhamrah", "Apache V2", "http://www.apache.org/licenses/LICENSE-2.0"
+    )
 
     //authorizations, not used
   }
